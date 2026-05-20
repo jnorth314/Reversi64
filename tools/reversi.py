@@ -1,5 +1,4 @@
 from enum import IntEnum
-from typing import Callable
 
 class Piece(IntEnum):
     NONE = 0
