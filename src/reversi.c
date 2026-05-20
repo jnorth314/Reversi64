@@ -1,7 +1,6 @@
 #include "reversi.h"
 
 #include <libdragon.h>
-#include <string.h>
 
 inline bool is_in_range(int x, int y) {
     return x >= 0 && x < BOARD_WIDTH && y >= 0 && y < BOARD_HEIGHT;
