@@ -64,9 +64,6 @@ int main() {
 
     display_init(RESOLUTION_640x480, DEPTH_16_BPP, 2, GAMMA_NONE, FILTERS_DISABLED);
 
-    rdpq_font_t* font = rdpq_font_load_builtin(FONT_BUILTIN_DEBUG_MONO);
-    rdpq_text_register_font(1, font);
-
     start();
 
     while (1) {

@@ -167,28 +167,3 @@ void display_cursor(int x, int y) {
     rdpq_set_prim_color(RGBA32(255, 0, 0, 255));
     circle(BOARD_X0 + TILE_WIDTH*x + TILE_WIDTH/2, BOARD_Y0 + TILE_HEIGHT*y + TILE_HEIGHT/2, PLAYER_RADIUS);
 }
-
-static const int FONT_WIDTH = 8;
-static const int FONT_HEIGHT = 8;
-static const float BOARD_TEXT_X0 = (640 - FONT_WIDTH*BOARD_WIDTH) / 2;
-static const float BOARD_TEXT_Y0 = (480 - FONT_HEIGHT*BOARD_HEIGHT) / 2;
-static const char PIECES_TO_ASCII[NUM_PIECES] = {'.', 'W', 'K'};
-
-void print_board(Board* board) {
-    for (int y = 0; y < BOARD_HEIGHT; y++) {
-        for (int x = 0; x < BOARD_WIDTH; x++) {
-            rdpq_text_printf(NULL, 1, BOARD_TEXT_X0 + FONT_WIDTH*x, BOARD_TEXT_Y0 + FONT_HEIGHT*y, "%c", PIECES_TO_ASCII[board->tiles[y][x]]);
-        }
-    }
-};
-
-void print_moves(Board* board, Piece player) {
-    for (int y = 0; y < BOARD_HEIGHT; y++) {
-        for (int x = 0; x < BOARD_WIDTH; x++) {
-            if (is_valid_move(board, player, x, y))
-                rdpq_text_print(NULL, 1, BOARD_TEXT_X0 + FONT_WIDTH*x, BOARD_TEXT_Y0 + FONT_HEIGHT*y, "o");
-            else
-                rdpq_text_printf(NULL, 1, BOARD_TEXT_X0 + FONT_WIDTH*x, BOARD_TEXT_Y0 + FONT_HEIGHT*y, "%c", PIECES_TO_ASCII[board->tiles[y][x]]);
-        }
-    }
-}

@@ -28,7 +28,4 @@ void display_pieces(Board* board);
 void display_moves(Board* board, Piece player);
 void display_cursor(int x, int y);
 
-void print_board(Board* board);
-void print_moves(Board* board, Piece player);
-
 #endif /* _REVERSI_H_ */
