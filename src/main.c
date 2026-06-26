@@ -21,17 +21,8 @@ inline int clamp(int n, int min, int max) {
 void update(void) {
     joypad_buttons_t buttons = joypad_get_buttons_pressed(JOYPAD_PORT_1);
 
-    if (buttons.d_left)
-        x--;
-    if (buttons.d_right)
-        x++;
-    if (buttons.d_up)
-        y--;
-    if (buttons.d_down)
-        y++;
-
-    x = clamp(x, 0, BOARD_WIDTH - 1);
-    y = clamp(y, 0, BOARD_HEIGHT - 1);
+    x = clamp(x - buttons.d_left + buttons.d_right, 0, BOARD_WIDTH - 1);
+    y = clamp(y - buttons.d_up + buttons.d_down, 0, BOARD_HEIGHT - 1);
 
     if (buttons.a && is_valid_move(&board, player, x, y)) {
         place(&board, player, x, y);
