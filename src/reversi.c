@@ -2,6 +2,27 @@
 
 #include <libdragon.h>
 
+static const int DISPLAY_WIDTH = 640;
+static const int DISPLAY_HEIGHT = 480;
+
+static const int TILE_WIDTH = 48;
+static const int TILE_HEIGHT = 48;
+static const int CURSOR_RADIUS = 4;
+static const int MOVE_RADIUS = 4;
+static const int PIECE_RADIUS = 16;
+
+static const float BOARD_X0 = (DISPLAY_WIDTH - TILE_WIDTH*BOARD_WIDTH) / 2;
+static const float BOARD_Y0 = (DISPLAY_HEIGHT - TILE_HEIGHT*BOARD_HEIGHT) / 2;
+
+static const color_t BOARD_COLOR = RGBA32(0, 255, 0, 255);
+static const color_t GRID_COLOR = RGBA32(64, 64, 64, 255);
+static const color_t CURSOR_COLOR = RGBA32(255, 0, 0, 255);
+static const color_t PIECE_COLORS[NUM_PIECES] = {
+    RGBA32(0, 0, 0, 0),         //PIECE_NONE
+    RGBA32(255, 255, 255, 255), //PIECE_WHITE
+    RGBA32(0, 0, 0, 255)        //PIECE_BLACK
+};
+
 inline bool is_in_range(int x, int y) {
     return x >= 0 && x < BOARD_WIDTH && y >= 0 && y < BOARD_HEIGHT;
 }
@@ -85,19 +106,6 @@ void reset(Board* board) {
     board->tiles[3][4] = board->tiles[4][3] = PIECE_BLACK;
 }
 
-static const int TILE_WIDTH = 48;
-static const int TILE_HEIGHT = 48;
-static const int PIECE_RADIUS = 16;
-static const int MOVE_RADIUS = 4;
-static const float BOARD_X0 = (640 - TILE_WIDTH*BOARD_WIDTH) / 2;
-static const float BOARD_Y0 = (480 - TILE_HEIGHT*BOARD_HEIGHT) / 2;
-
-static const color_t PIECE_COLORS[NUM_PIECES] = {
-    RGBA32(0, 0, 0, 0),         //PIECE_NONE
-    RGBA32(255, 255, 255, 255), //PIECE_WHITE
-    RGBA32(0, 0, 0, 255)        //PIECE_BLACK
-};
-
 inline void circle(int x, int y, int r) {
     static const int NUM_TRIANGLES = 8;
     static const float PI = 3.1415926535f;
@@ -116,12 +124,10 @@ inline void circle(int x, int y, int r) {
 }
 
 void display_board(void) {
-    // Board
-    rdpq_set_mode_fill(RGBA32(0, 255, 0, 255));
+    rdpq_set_mode_fill(BOARD_COLOR);
     rdpq_fill_rectangle(BOARD_X0, BOARD_Y0, BOARD_X0 + TILE_WIDTH*BOARD_WIDTH, BOARD_Y0 + TILE_HEIGHT*BOARD_HEIGHT);
 
-    // Grid
-    rdpq_set_mode_fill(RGBA32(64, 64, 64, 255));
+    rdpq_set_mode_fill(GRID_COLOR);
     for (int x = 1; x < BOARD_WIDTH; x++)
         rdpq_fill_rectangle(BOARD_X0 + TILE_WIDTH*x, BOARD_Y0, BOARD_X0 + TILE_WIDTH*x + 1, BOARD_Y0 + TILE_HEIGHT*BOARD_HEIGHT);
     for (int y = 1; y < BOARD_HEIGHT; y++)
@@ -160,10 +166,8 @@ void display_moves(Board* board, Piece player) {
 }
 
 void display_cursor(int x, int y) {
-    static const int PLAYER_RADIUS = 4;
-
     rdpq_set_mode_standard();
     rdpq_mode_combiner(RDPQ_COMBINER_FLAT);
-    rdpq_set_prim_color(RGBA32(255, 0, 0, 255));
-    circle(BOARD_X0 + TILE_WIDTH*x + TILE_WIDTH/2, BOARD_Y0 + TILE_HEIGHT*y + TILE_HEIGHT/2, PLAYER_RADIUS);
+    rdpq_set_prim_color(CURSOR_COLOR);
+    circle(BOARD_X0 + TILE_WIDTH*x + TILE_WIDTH/2, BOARD_Y0 + TILE_HEIGHT*y + TILE_HEIGHT/2, CURSOR_RADIUS);
 }
