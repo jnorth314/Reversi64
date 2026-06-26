@@ -19,6 +19,7 @@ typedef struct {
 
 bool is_valid_move(Board* board, Piece piece, int x, int y);
 bool has_valid_move(Board* board, Piece piece);
+Piece next_player(Board* board, Piece player);
 void flip(Board* board, Piece piece, int x, int y, int dx, int dy);
 void place(Board* board, Piece piece, int x, int y);
 void reset(Board* board);

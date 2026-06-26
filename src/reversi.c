@@ -64,6 +64,18 @@ bool has_valid_move(Board* board, Piece piece) {
     return false;
 }
 
+Piece next_player(Board* board, Piece player) {
+    Piece other = player == PIECE_WHITE ? PIECE_BLACK : PIECE_WHITE;
+
+    if (has_valid_move(board, other))
+        return other;
+
+    if (has_valid_move(board, player))
+        return player;
+
+    return PIECE_NONE;
+}
+
 void flip(Board* board, Piece piece, int x, int y, int dx, int dy) {
     do {
         board->tiles[y][x] = piece;

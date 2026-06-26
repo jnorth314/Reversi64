@@ -12,15 +12,6 @@ void start(void) {
     player = PIECE_WHITE;
 }
 
-void set_next_player(void) {
-    Piece other = player == PIECE_WHITE ? PIECE_BLACK : PIECE_WHITE;
-
-    if (has_valid_move(&board, other))
-        player = other;
-    else if (!has_valid_move(&board, player))
-        player = PIECE_NONE;
-}
-
 inline int clamp(int n, int min, int max) {
     if (n < min) return min;
     if (n > max) return max;
@@ -44,7 +35,7 @@ void update(void) {
 
     if (buttons.a && is_valid_move(&board, player, x, y)) {
         place(&board, player, x, y);
-        set_next_player();
+        player = next_player(&board, player);
     }
 
     if (buttons.start)
