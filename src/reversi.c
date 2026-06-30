@@ -114,8 +114,8 @@ void place(Board* board, Piece piece, int x, int y) {
 
 void reset(Board* board) {
     sys_hw_memset32(&board->tiles, PIECE_NONE, sizeof(board->tiles));
-    board->tiles[3][3] = board->tiles[4][4] = PIECE_WHITE;
-    board->tiles[3][4] = board->tiles[4][3] = PIECE_BLACK;
+    board->tiles[BOARD_HEIGHT/2 - 1][BOARD_WIDTH/2 - 1] = board->tiles[BOARD_HEIGHT/2][BOARD_WIDTH/2] = PIECE_WHITE;
+    board->tiles[BOARD_HEIGHT/2 - 1][BOARD_WIDTH/2] = board->tiles[BOARD_HEIGHT/2][BOARD_WIDTH/2 - 1] = PIECE_BLACK;
 }
 
 inline void circle(int x, int y, int r) {
@@ -174,7 +174,6 @@ void display_moves(Board* board, Piece player) {
                 circle(BOARD_X0 + TILE_WIDTH*x + TILE_WIDTH/2, BOARD_Y0 + TILE_HEIGHT*y + TILE_HEIGHT/2, MOVE_RADIUS);
         }
     }
-
 }
 
 void display_cursor(int x, int y) {

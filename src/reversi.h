@@ -6,6 +6,14 @@
 #define BOARD_WIDTH  (8)
 #define BOARD_HEIGHT (8)
 
+#if (BOARD_WIDTH%2 != 0 || BOARD_HEIGHT%2 != 0)
+#error "Board Dimensions Must Be Divisible By 2!"
+#endif
+
+#if (BOARD_WIDTH <= 4 || BOARD_HEIGHT <= 4)
+#error "Board Dimensions Must Be Greater Than 4!"
+#endif
+
 typedef enum {
     PIECE_NONE,
     PIECE_WHITE,
