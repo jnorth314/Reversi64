@@ -10,8 +10,8 @@
 #error "Board Dimensions Must Be Divisible By 2!"
 #endif
 
-#if (BOARD_WIDTH <= 4 || BOARD_HEIGHT <= 4)
-#error "Board Dimensions Must Be Greater Than 4!"
+#if (BOARD_WIDTH <= 2 || BOARD_HEIGHT <= 2)
+#error "Board Dimensions Must Be Greater Than 2!"
 #endif
 
 typedef enum {

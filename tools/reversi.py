@@ -12,7 +12,7 @@ BOARD_WIDTH = BOARD_HEIGHT = 8
 def is_in_range(x: int, y: int) -> bool:
     """Return if the coordinates exist on the board space"""
 
-    return 0 <= y < BOARD_HEIGHT and 0 <= x < BOARD_HEIGHT
+    return 0 <= x < BOARD_WIDTH and 0 <= y < BOARD_HEIGHT
 
 def is_valid_move(board: Board, piece: Piece, x: int, y: int) -> bool:
     """Return if the piece is able to make a valid move on the board at the position"""
